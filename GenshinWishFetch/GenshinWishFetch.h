@@ -3,9 +3,12 @@
 
 #include <iostream>
 #include <string>
-#include <vector>
+#include <map>
 
 #include "platform.h"
 
 // UrlProcessing.cpp
-std::vector<std::pair<std::string, std::string>> FormParametersFromGachaLink(std::string GachaLink);
+std::map<std::string, std::string> FormParametersFromGachaLink(std::string GachaLink);
+
+// InteractiveSession.cpp
+void InteractiveSession();

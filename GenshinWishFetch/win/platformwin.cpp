@@ -28,7 +28,7 @@ void TestHttpRequest() {
 		return;
 	}
 
-	CHAR readBuffer[512];
+	CHAR readBuffer[512] { 0 };
 	DWORD dwBytesRead;
 
 	while (true) {

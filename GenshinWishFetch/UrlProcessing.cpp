@@ -1,14 +1,14 @@
 
 #include <string>
-#include <vector>
+#include <map>
 #include <string_view>
 
 using std::string;
-using std::vector;
+using std::map;
 using std::pair;
 
-vector<pair<string, string>> FormParametersFromGachaLink(string GachaLink) {
-	vector<pair<string, string>> ret;
+std::map<std::string, std::string> FormParametersFromGachaLink(string GachaLink) {
+	map<string, string> ret;
 
 	// Capture the part between '?' and the next '/'. See example:
 	// https://webstatic.mihoyo.com/hk4e/event/e20190909gacha-v2/index.html?[...hk4e_cn#]/log
@@ -20,7 +20,7 @@ vector<pair<string, string>> FormParametersFromGachaLink(string GachaLink) {
 	if (idxQuestionMark == idxNextSlash - 1) // params length is zero
 		return ret;
 
-	string params = GachaLink.substr(idxQuestionMark + 1, idxNextSlash - idxQuestionMark);
+	string params = GachaLink.substr(idxQuestionMark + 1, idxNextSlash - idxQuestionMark - 1);
 
 	// Split each parameter
 	size_t from = 0, to;
@@ -38,7 +38,7 @@ vector<pair<string, string>> FormParametersFromGachaLink(string GachaLink) {
 			continue;
 
 		// Add K-V pair
-		ret.emplace_back(pair{ string(kvPair.substr(0, equalSignPos)), string(kvPair.substr(equalSignPos + 1)) });
+		ret[string(kvPair.substr(0, equalSignPos))] = string(kvPair.substr(equalSignPos + 1));
 
 		// Go to next param
 		from = to + 1;
