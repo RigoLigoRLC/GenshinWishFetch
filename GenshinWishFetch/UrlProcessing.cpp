@@ -7,7 +7,7 @@ using std::string;
 using std::map;
 using std::pair;
 
-std::map<std::string, std::string> FormParametersFromGachaLink(string GachaLink) {
+std::map<std::string, std::string> ParametersFromGachaLink(string GachaLink) {
 	map<string, string> ret;
 
 	// Capture the part between '?' and the next '/'. See example:

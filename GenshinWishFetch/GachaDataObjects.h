@@ -1,6 +1,9 @@
 
+#pragma once
+
 #include <string>
 #include <list>
+#include <map>
 
 enum ItemRank {
 	Rank3Star			= 3,
@@ -23,6 +26,7 @@ enum GachaType {
 struct SinglePullResult {
 	std::string			Name;
 	ItemRank			Rank;
+	ItemType			Type;
 	std::tm				TimePulled;
 	unsigned long long  PullId;
 };
@@ -36,6 +40,9 @@ struct RequestGachaHistorySpec {
 	std::string			GameBiz;
 	std::string			GachaId;
 	GachaType			Type;
+
+	// Run the fetch loop only once. Used to retrieve UID.
+	bool SingleShot;
 
 	// Download gacha records until this pull.
 	// The specified pull is not included in returned data.
@@ -54,4 +61,12 @@ struct GachaHistoryResponse {
 
 	uint32_t						Uid;
 	std::list<SinglePullResult>		Pulls;
+};
+
+struct PlayerMetadata {
+	// The gacha ID of last pull retrieved last time. Key = Gacha Type, Val = Gacha ID
+	std::map<int, unsigned long long> LastLoggedGachaId;
+
+	// Novice wish. Defaults to off. Turned off after using one time.
+	bool DoFetchNoviceWish;
 };
