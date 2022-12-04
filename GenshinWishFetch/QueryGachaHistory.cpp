@@ -119,6 +119,8 @@ GachaHistoryResponse FetchGachaHistory(RequestGachaHistorySpec spec) {
 											  ItemPerPage,
 											  endId);
 
+		// Wait 500ms regardless of success
+		std::this_thread::sleep_for(std::chrono::milliseconds(500));
 		reqResult = DoRequest(serverDomain, queryObject, true, errCode);
 
 		if (reqResult.empty()) {
@@ -162,8 +164,6 @@ GachaHistoryResponse FetchGachaHistory(RequestGachaHistorySpec spec) {
 			break;
 
 		lastEndId = ret.Pulls.back().PullId;
-
-		std::this_thread::sleep_for(std::chrono::milliseconds(500));
 	}
 
 BreakMainFetchLoop:
